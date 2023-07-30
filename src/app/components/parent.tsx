@@ -29,7 +29,6 @@ export default function Parent({
   //...props
 }: 
 ParentProps) {
-  const [data] = hooks.useFoo();
   return (
     <>
       <p>
