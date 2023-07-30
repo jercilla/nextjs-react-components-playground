@@ -4,6 +4,10 @@ export default function Page() {
   return (
     <>
       <h2>Parent component TESTING page</h2>
+      <p>
+        Provide alternative implementations for child components through override 
+        default actual components.      
+      </p>
 
       <Parent>
       {{
