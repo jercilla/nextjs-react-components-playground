@@ -1,25 +1,26 @@
-'use client'
+"use client";
 
-import Parent from "@/app/components/parent";
+import Parent, { ParentProps } from "@/app/components/parent";
 
 export default function Page() {
+  const ParentPropsMock: ParentProps = {
+    children: {
+      oneChild: <section>Mock red child</section>,
+      anotherChild: <section>Mock blue child</section>,
+    },
+    hooks: {
+      useFoo: () => ["FooMock"],
+      useBoo: () => ["BooMock"],
+    },
+  };
   return (
     <>
       <h2>Parent component TESTING page</h2>
       <p>
-        Provide alternative implementations for child components through override 
-        default actual components.      
+        Provide alternative implementations for child components through
+        override default actual components.
       </p>
-
-      <Parent hooks={{
-        useFoo: () => ["FooMock"],
-        useBoo: () => ["BooMock"],
-      }}>
-      {{
-        oneChild: <section>Mock red child</section>,
-        anotherChild: <section>Mock blue child</section>
-      }}
-      </Parent>
+      <Parent {...ParentPropsMock} />
     </>
   );
 }
