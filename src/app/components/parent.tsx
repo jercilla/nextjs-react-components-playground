@@ -1,13 +1,24 @@
+'use client'
+
 import ChildRed from "@/app/components/child-red";
 import ChildBlue from "@/app/components/child-blue";
+import useBoo from "@/app/hooks/useBoo";
+import useFoo from "@/app/hooks/useFoo";
 
 export default function Parent({
   children = {
     oneChild: ChildRed(),
     anotherChild: ChildBlue(),
   },
+  hooks = {
+    useFoo: useFoo,
+    useBoo: useBoo,
+  },
   ...props
 }) {
+  const [dataFoo] = hooks.useFoo();
+  const [dataBoo] = hooks.useBoo();
+
   return (
     <>
       <p>
@@ -21,9 +32,10 @@ export default function Parent({
       </p>
       <section style={{ border: "2px solid green", padding: "1rem" }}>
         <h3>Parent</h3>
-        {children.oneChild}
-        ... ... ...
+        {children.oneChild}            
+        ... {dataFoo} ...
         {children.anotherChild}
+        ... {dataBoo} ...
       </section>
     </>
   );

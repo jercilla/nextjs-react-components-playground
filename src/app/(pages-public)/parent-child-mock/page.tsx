@@ -1,3 +1,5 @@
+'use client'
+
 import Parent from "@/app/components/parent";
 
 export default function Page() {
@@ -9,7 +11,10 @@ export default function Page() {
         default actual components.      
       </p>
 
-      <Parent>
+      <Parent hooks={{
+        useFoo: () => ["FooMock"],
+        useBoo: () => ["BooMock"],
+      }}>
       {{
         oneChild: <section>Mock red child</section>,
         anotherChild: <section>Mock blue child</section>
