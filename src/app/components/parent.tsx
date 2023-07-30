@@ -16,9 +16,6 @@ export default function Parent({
   },
   ...props
 }) {
-  const [dataFoo] = hooks.useFoo();
-  const [dataBoo] = hooks.useBoo();
-
   return (
     <>
       <p>
@@ -33,9 +30,9 @@ export default function Parent({
       <section style={{ border: "2px solid green", padding: "1rem" }}>
         <h3>Parent</h3>
         {children.oneChild}            
-        ... {dataFoo} ...
+        ... {hooks.useFoo()} ...
         {children.anotherChild}
-        ... {dataBoo} ...
+        ... {hooks.useBoo()} ...
       </section>
     </>
   );
