@@ -7,8 +7,8 @@ export default function Page() {
     <>
       <h2>Parent component REAL page</h2>
       <p>
-        Passing child components to _Parent_ as children instead of creating
-        inside de, effectively DECOUPLES _Parent_ from its dependencies.
+        Passing child components through to _Parent_ as children instead of creating inside it, 
+        effectively _DECOUPLES_ _Parent_ from its _dependant components_.
       </p>
       <Parent>
       {{

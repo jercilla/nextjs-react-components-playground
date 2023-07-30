@@ -1,9 +1,7 @@
-import { ReactNode } from "react";
-
 type childComponents = "oneChild" | "anotherChild";
 
 export interface Props {
-  children?: { [key in childComponents]: ReactNode };
+  children?: { [key in childComponents]: JSX.Element };
 }
 
 export default function Parent({ children, ...props }: Props) {
