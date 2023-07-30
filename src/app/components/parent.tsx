@@ -7,11 +7,11 @@ import useFoo from "@/app/hooks/useFoo";
 import { ReactNode } from "react";
 
 export type ParentProps = {
-  children: {
+  children?: {
     oneChild: ReactNode;
     anotherChild: ReactNode;
   };
-  hooks: {
+  hooks?: {
     useFoo: () => string[];
     useBoo: () => string[];
   };

@@ -1,4 +1,3 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
@@ -12,23 +11,114 @@ yarn dev
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000/story](http://localhost:3000/story) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+## Component Dependency Management
 
-To learn more about Next.js, take a look at the following resources:
+### GIVEN 
+one component depending on two `child components` plus two additional `hooks`:
+```
+     HookFoo
+   / HookBoo
+  / /
+Parent
+  \ \ 
+   \ ChildRed
+     ChildBlue
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### THEN
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+We have **not only** to **import** them:
 
-## Deploy on Vercel
+```typescript
+import ChildRed from "@/app/components/child-red";
+import ChildBlue from "@/app/components/child-blue";
+import useBoo from "@/app/hooks/useBoo";
+import useFoo from "@/app/hooks/useFoo";
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+but to **declare** them as **dependencies** in function params (== `props`), with `default values` and optional `typing`:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```typescript
+export type ParentProps = {
+  children: {
+    oneChild: ReactNode;
+    anotherChild: ReactNode;
+  };
+  hooks: {
+    useFoo: () => string[];
+    useBoo: () => string[];
+  };
+};
+
+export default function Parent({
+  children = {
+    oneChild: ChildRed(),
+    anotherChild: ChildBlue(),
+  },
+  hooks = {
+    useFoo: useFoo,
+    useBoo: useBoo,
+  },
+}: 
+ParentProps) {
+...
+...
+}
+```
+
+### SO THAT
+
+We can use the component in the usual way (see: `src/app/parent-child/page.tsc`):
+
+```typescript
+import Parent from "@/app/components/parent";
+
+export default function Page() {
+  return (
+    <>
+      <h2>Parent component REAL page</h2>
+      <Parent />
+    </>
+  );
+}
+```
+
+And, at the same time, use it _isolated_, with `mock data`(see: `src/app/parent-child-mock/page.tsc`):
+
+```typescript
+import Parent, { ParentProps } from "@/app/components/parent";
+
+export default function Page() {
+  const ParentPropsMock: ParentProps = {
+    children: {
+      oneChild: <section>Mock red child</section>,
+      anotherChild: <section>Mock blue child</section>,
+    },
+    hooks: {
+      useFoo: () => ["FooMock"],
+      useBoo: () => ["BooMock"],
+    },
+  };
+  return (
+    <>
+      <h2>Parent component TESTING page</h2>
+      <p>
+        Provide alternative implementations for child components through
+        override default actual components.
+      </p>
+      <Parent {...ParentPropsMock} />
+    </>
+  );
+}
+```
+
+
+
+
+
+
