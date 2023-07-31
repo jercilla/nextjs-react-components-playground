@@ -5,10 +5,10 @@ export default function Menu() {
     <>
       <ul>
         <li>
-          <Link href="parent-child">Parent with REAL childs</Link>
+          <Link href="parent-child">Parent with REAL children</Link>
         </li>
         <li>
-          <Link href="parent-child-mock">Parent with MOCK childs</Link>
+          <Link href="parent-child-mock">Parent with MOCK children</Link>
         </li>
       </ul>
     </>
